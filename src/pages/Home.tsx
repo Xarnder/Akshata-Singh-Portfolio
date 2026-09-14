@@ -5,29 +5,35 @@ import { Link } from 'react-router-dom'
 function Home() {
   const [copyStatus, setCopyStatus] = useState('')
 
-  async function copyEmail() {
+  async function copyContact(label: string, value: string) {
     try {
-      await navigator.clipboard.writeText('akshatasingh444@gmail.com')
-      setCopyStatus('Email copied to clipboard.')
+      await navigator.clipboard.writeText(value)
+      setCopyStatus(`${label} copied to clipboard.`)
     } catch {
-      setCopyStatus('Could not copy email. Please select and copy it manually.')
+      setCopyStatus(`Could not copy ${label.toLowerCase()}. Please select and copy it manually.`)
     }
   }
 
   return (
     <section className="home-panel" aria-labelledby="hero-title">
       <div className="hero-content">
-        <p className="hero-eyebrow">Building intelligent<br />applications for a brighter tomorrow</p>
+        <p className="hero-eyebrow">Artificial intelligence &amp;<br />full-stack development</p>
         <h1 id="hero-title"><small className="hero-greeting">Hi, I’m</small><br /><span>Akshata Singh</span></h1>
         <p className="hero-description">Full Stack Developer &amp; AI Engineer with an <strong>AI Master’s Degree</strong>, <strong>4+ Years</strong> of experience building production web applications and AI-powered systems, and hands-on <strong>Claude Code Experience</strong>.<br className="hero-line-break" /> I build secure, fast backends paired with pixel-perfect frontends.</p>
         <div className="hero-actions">
-          <a href="tel:+447747231464" className="hero-button hero-button-primary hero-button-glow hero-button-call" aria-label="Call me on +44 7747 231464"><Phone size={18} aria-hidden="true" /><span className="hero-call-label">Call me<small>+44 7747 231464</small></span></a>
-          <a href="https://www.linkedin.com/in/akshata-singh-89b83b194/" className="hero-button hero-button-secondary" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="tel:+447747231464" className="hero-button hero-button-primary hero-button-glow hero-button-call" aria-label="Call me on +44 7747 231464">Call me</a>
           <Link to="/projects" className="hero-button hero-button-secondary">View My Work <ArrowRight size={19} aria-hidden="true" /></Link>
         </div>
         <div className="hero-email">
-          <a href="mailto:akshatasingh444@gmail.com" className="hero-button hero-button-secondary"><Mail size={18} aria-hidden="true" /><span>akshatasingh444@gmail.com</span></a>
-          <button type="button" className="contact-copy" onClick={copyEmail} aria-label="Copy email address" title="Copy email address"><Copy size={18} aria-hidden="true" /></button>
+          <a href="https://www.linkedin.com/in/akshata-singh-89b83b194/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <div className="hero-contact-item">
+            <a href="mailto:akshatasingh444@gmail.com"><Mail size={18} aria-hidden="true" /><span>akshatasingh444@gmail.com</span></a>
+            <button type="button" className="contact-copy" onClick={() => copyContact('Email', 'akshatasingh444@gmail.com')} aria-label="Copy email address" title="Copy email address"><Copy size={18} aria-hidden="true" /></button>
+          </div>
+          <div className="hero-contact-item">
+            <a href="tel:+447747231464"><Phone size={18} aria-hidden="true" /><span>+44 7747 231464</span></a>
+            <button type="button" className="contact-copy" onClick={() => copyContact('Phone number', '+44 7747 231464')} aria-label="Copy phone number" title="Copy phone number"><Copy size={18} aria-hidden="true" /></button>
+          </div>
         </div>
         <p className="hero-copy-status" role="status">{copyStatus}</p>
         <ul className="hero-technologies" aria-label="Technologies">
