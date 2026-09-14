@@ -10,6 +10,11 @@ function App() {
   const location = useLocation()
   const [displayLocation, setDisplayLocation] = useState(location)
   const scrollArea = useRef<HTMLElement>(null)
+  const scrollTint = useRef<HTMLDivElement>(null)
+
+  function updateScrollTint(scrollTop: number) {
+    scrollTint.current?.style.setProperty('--scroll-tint', String(Math.min(Math.max(scrollTop, 0) / 220, 1) * 0.96))
+  }
   const isLeaving = location.pathname !== displayLocation.pathname
 
   useEffect(() => {
@@ -21,6 +26,7 @@ function App() {
 
   useLayoutEffect(() => {
     scrollArea.current?.scrollTo({ top: 0, behavior: 'instant' })
+    updateScrollTint(0)
     const page = displayLocation.pathname.slice(1)
     document.title = page ? `${page[0].toUpperCase()}${page.slice(1)} | Akshata Singh` : 'Akshata Singh'
   }, [displayLocation.pathname])
@@ -33,9 +39,10 @@ function App() {
           <img className="hero-photo" src="/hero-profile.webp" alt="" fetchPriority="high" />
         </picture>
         <div className="hero-shade" />
+        <div ref={scrollTint} className="scroll-tint" />
       </div>
       <Navbar />
-      <main ref={scrollArea} className="portfolio-scroll" id="main-content" tabIndex={-1}>
+      <main ref={scrollArea} onScroll={event => updateScrollTint(event.currentTarget.scrollTop)} className="portfolio-scroll" id="main-content" tabIndex={-1}>
         <div key={displayLocation.pathname} className={`page-transition ${isLeaving ? 'page-leaving' : 'page-entering'}`}>
           <Routes location={displayLocation}>
             <Route path="/" element={<Home />} />

@@ -274,8 +274,8 @@ body {
   .portfolio-scroll { top: 120px; }
   .portfolio-shell .hero-nav { min-height: 115px; background: linear-gradient(#101719ee, #10171955); }
   .portfolio-backdrop .hero-shade { background: linear-gradient(0deg, #141b1e 0%, #141b1ef5 33%, #141b1e88 60%, #141b1e22 80%, #141b1e88 100%); }
-  .home-panel .hero-content { padding-top: 210px; }
-  .detail-panel { width: auto; margin: 0 6vw; padding: 32px 0 40px; }
+  .home-panel .hero-content { padding-top: 310px; }
+  .detail-panel { width: auto; margin: 0 6vw; padding: 310px 0 40px; }
   .panel-title { font-size: 46px; }
   .panel-intro { font-size: 15px; }
   .detail-card { padding: 22px 20px; background: #151c23eb; }
@@ -341,4 +341,57 @@ body {
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 48%, #000f 55%, #000e 62%, #000b 70%, #0007 78%, #0003 87%, #0001 94%, transparent 100%);
     mask-image: linear-gradient(to bottom, #000 0%, #000 48%, #000f 55%, #000e 62%, #000b 70%, #0007 78%, #0003 87%, #0001 94%, transparent 100%);
   }
+}
+
+/* Keep the unobstructed mobile portrait clear; fade just before the mobile page content. */
+@media (max-width: 700px) {
+  [data-theme='light'] .portfolio-shell .portfolio-backdrop::after {
+    opacity: 0;
+  }
+  .portfolio-shell .hero-photo {
+    -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 360px, #000f 375px, #000c 395px, #0006 415px, #0002 435px, transparent 455px);
+    mask-image: linear-gradient(to bottom, #000 0px, #000 360px, #000f 375px, #000c 395px, #0006 415px, #0002 435px, transparent 455px);
+  }
+}
+
+/* Feather the header surface independently so navigation stays crisp. */
+.portfolio-shell .hero-nav,
+[data-theme='light'] .portfolio-shell .hero-nav {
+  background: transparent;
+  isolation: isolate;
+}
+.portfolio-shell .hero-nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -36px;
+  z-index: -1;
+  pointer-events: none;
+  background: #101719b3;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 45%, #000e 58%, #0009 72%, #0003 88%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 45%, #000e 58%, #0009 72%, #0003 88%, transparent 100%);
+  transition: background-color 450ms ease;
+}
+[data-theme='light'] .portfolio-shell .hero-nav::before {
+  background: #f6f3f0db;
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-shell .hero-nav::before { transition: none; }
+}
+
+/* Mobile copy gains contrast only as it scrolls over the portrait. */
+.scroll-tint { display: none; }
+@media (max-width: 700px) {
+  .portfolio-shell .portfolio-backdrop .hero-shade { opacity: 0; }
+  .scroll-tint {
+    display: block;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: #141b1e;
+    opacity: var(--scroll-tint, 0);
+    transition: background-color 450ms ease;
+  }
+  [data-theme='light'] .scroll-tint { background: #f6f3f0; }
 }
