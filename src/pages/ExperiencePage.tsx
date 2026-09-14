@@ -48,24 +48,17 @@ const jobs: Job[] = [
 
 function ExperiencePage() {
   return (
-    <section className="mx-auto max-w-3xl px-2 py-6 sm:px-6 sm:py-12">
-      <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-gray-100">Experience</h1>
-      <div className="flex flex-col gap-5">
+    <section className="detail-panel" aria-labelledby="experience-title">
+      <p className="hero-eyebrow">The journey so far</p>
+      <h1 id="experience-title" className="panel-title">Experience<span>.</span></h1>
+      <p className="panel-intro">Building thoughtful software, from enterprise platforms to intelligent AI systems.</p>
+      <div className="detail-stack timeline">
         {jobs.map((job) => (
-          <article
-            key={job.title + job.company}
-            className="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-900 sm:p-6"
-          >
-            <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{job.title}</h2>
-              <span className="text-sm text-gray-600 dark:text-gray-400">{job.dates}</span>
-            </div>
-            <p className="mb-3 mt-1 font-medium text-wine dark:text-wine-dark oled:text-white">{job.company}</p>
-            <ul className="list-disc space-y-1.5 pl-5 text-gray-600 dark:text-gray-300">
-              {job.bullets.map((b) => (
-                <li key={b}>{b}</li>
-              ))}
-            </ul>
+          <article key={job.title + job.company} className="detail-card">
+            <p className="card-date">{job.dates}</p>
+            <h2>{job.title}</h2>
+            <p className="card-company">{job.company}</p>
+            <ul>{job.bullets.map(b => <li key={b}>{b}</li>)}</ul>
           </article>
         ))}
       </div>

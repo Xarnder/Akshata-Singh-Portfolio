@@ -1,56 +1,26 @@
+import { ArrowRight, CodeXml, Sparkles, Users } from 'lucide-react'
+import { Link } from 'react-router-dom'
+
 function Home() {
-  const contactLinkClass =
-    'rounded-full border-[1.5px] border-wine px-4 py-2 font-medium text-wine dark:border-wine-dark dark:text-wine-dark oled:border-white oled:text-white ' +
-    'transition hover:-translate-y-0.5 hover:scale-105 hover:text-white hover:shadow-lg hover:shadow-wine/35 ' +
-    'hover:bg-gradient-to-br hover:from-wine hover:to-wine-hover ' +
-    'dark:hover:from-wine-dark dark:hover:to-wine-dark-hover active:translate-y-0 active:scale-95 ' +
-    'oled:hover:from-white oled:hover:to-white oled:hover:text-black oled:hover:shadow-none'
-
   return (
-    <section className="mx-auto mt-0 max-w-2xl px-4 text-center sm:mt-1 sm:px-6">
-      <img
-        src="/profile.jpeg"
-        alt="Akshata Singh"
-        className="mx-auto mb-4 h-40 w-40 rounded-full border-4 border-wine object-cover object-top dark:border-wine-dark oled:border-white sm:h-56 sm:w-56 md:h-72 md:w-72"
-      />
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl">Akshata Singh</h1>
-      <p className="mt-1 font-semibold text-wine dark:text-wine-dark oled:text-white">
-        Full Stack Developer &amp; AI Engineer
-      </p>
-
-      <div className="my-6 flex flex-wrap justify-center gap-3">
-        <a href="mailto:akshatasingh444@gmail.com" className={contactLinkClass}>
-          akshatasingh444@gmail.com
-        </a>
-        <a href="tel:+447747231464" className={contactLinkClass}>
-          +44 7747231464
-        </a>
-        <a
-          href="https://www.linkedin.com/in/akshata-singh-89b83b194/"
-          target="_blank"
-          rel="noreferrer"
-          className={contactLinkClass}
-        >
-          LinkedIn
-        </a>
-        <a
-          href="https://github.com/AkshataSingh"
-          target="_blank"
-          rel="noreferrer"
-          className={contactLinkClass}
-        >
-          GitHub
-        </a>
+    <section className="home-panel" aria-labelledby="hero-title">
+      <div className="hero-content">
+        <p className="hero-eyebrow">Building intelligent<br />applications for a brighter tomorrow</p>
+        <h1 id="hero-title">Hi, I’m<br /><span>Akshata Singh</span></h1>
+        <p className="hero-description">Full Stack Developer &amp; AI Engineer with 4+ years of experience building production web applications and AI-powered systems.<br className="hero-line-break" /> I love turning complex problems into elegant, practical solutions that make a real impact.</p>
+        <div className="hero-actions">
+          <Link to="/projects" className="hero-button hero-button-primary">View My Work <ArrowRight size={19} aria-hidden="true" /></Link>
+          <Link to="/contact" className="hero-button hero-button-secondary">Get In Touch</Link>
+        </div>
+        <ul className="hero-technologies" aria-label="Technologies">
+          {['React', 'Node.js', 'Python', 'TypeScript', 'AI/ML', 'Claude', 'OpenAI'].map(technology => <li key={technology}>{technology}</li>)}
+        </ul>
+        <div className="hero-stats">
+          <div className="hero-stat"><span className="hero-stat-icon"><CodeXml aria-hidden="true" /></span><div><strong>4+</strong><span>Years Experience</span></div></div>
+          <div className="hero-stat"><span className="hero-stat-icon"><Users aria-hidden="true" /></span><div><strong>20+</strong><span>Projects Delivered</span></div></div>
+          <div className="hero-stat"><span className="hero-stat-icon"><Sparkles aria-hidden="true" /></span><div><strong>AI</strong><span>Focused on Impact</span></div></div>
+        </div>
       </div>
-
-      <p className="leading-relaxed text-gray-600 dark:text-gray-400">
-        Full Stack Developer with 4+ years of experience building production web applications
-        and AI-powered systems using React, Node.js, TypeScript and Python. Architected a
-        multi-agent AI platform integrating Claude and OpenAI APIs, and shipped production
-        platforms in financial services. Also researching low-level machine learning systems,
-        including model compression, quantization, and inference optimization for real-time AI
-        applications.
-      </p>
     </section>
   )
 }
